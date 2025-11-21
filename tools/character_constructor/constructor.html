@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Character Constructor</title>
+    <link rel="stylesheet" href="css/constructor_style.css">
+    <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
+</head>
+<body>
+    <div id="app-container">
+        <header>
+            <h1>Character Constructor</h1>
+            <p>A custom tool to transform 2D character art into 3D models.</p>
+        </header>
+
+        <main>
+            <div id="controls">
+                <label for="image-upload" class="upload-label">
+                    <span>🖼️ Upload 2D Character Image</span>
+                    <input type="file" id="image-upload" accept="image/png, image/jpeg">
+                </label>
+                <button id="generate-btn" disabled>Generate 3D Model</button>
+            </div>
+
+            <!-- ✅ NEW: Comparison view structure -->
+            <div id="comparison-container" class="hidden">
+                <div class="view-panel" id="image-panel">
+                    <h3>Original 2D Image</h3>
+                    <img id="source-image" src="" alt="Original Character Art"/>
+                </div>
+                <div class="view-panel" id="model-panel">
+                    <h3>Interactive 3D Model</h3>
+                    <div id="viewer-container">
+                        <!-- Model viewer will be injected here -->
+                    </div>
+                </div>
+            </div>
+            
+            <div id="status-container">
+                 <p id="status-text">Please upload an image to begin.</p>
+            </div>
+
+            <!-- ✅ NEW: Stats and Download section -->
+            <div id="results-section" class="hidden">
+                <div id="stats-panel">
+                    <h4>Generation Stats</h4>
+                    <p><strong>Model Used:</strong> <span id="stat-model"></span></p>
+                    <p><strong>Pipeline Time:</strong> <span id="stat-time"></span>s</p>
+                    <p><strong>Views Generated:</strong> <span id="stat-views"></span></p>
+                    <p><strong>File Size:</strong> <span id="stat-size"></span> KB</p>
+                </div>
+                <a id="download-link" href="#" download="character.glb">
+                    <button>Download .glb Model</button>
+                </a>
+            </div>
+        </main>
+    </div>
+
+    <script src="js/constructor_main.js"></script>
+</body>
+</html>
