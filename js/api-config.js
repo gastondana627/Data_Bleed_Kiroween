@@ -23,8 +23,9 @@ class APIConfig {
                          hostname.startsWith('192.168.') ||
                          hostname.endsWith('.local');
 
-    // Production Railway URL (shared with original Chroma version to save costs)
-    const PRODUCTION_API_URL = 'https://data-bleed-backend.up.railway.app';
+    // Production Railway URL (disabled for Kiroween - backend not needed for competition)
+    // Game works fully without backend - chat uses fallback responses
+    const PRODUCTION_API_URL = null; // Disabled to prevent 404 errors
     
     // Development API URL
     const DEVELOPMENT_API_URL = 'http://127.0.0.1:3001';
