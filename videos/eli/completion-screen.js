@@ -417,12 +417,15 @@ function showCompletionScreen(finalScore) {
         
         console.log(`🎬 Starting logo animation for ${endingType} ending...`);
         
-        // Choose animation based on ending type
-        if (showEmailSignup) {
-            // SUCCESS: Show Data Bleed logo video
+        // Choose animation based on ending type and score
+        if (finalScore >= 70) {
+            // EXCELLENT/GOOD (70+): Show clean Data Bleed logo video
             showDataBleedVideo();
+        } else if (finalScore >= WINNING_THRESHOLD) {
+            // MODERATE (60-69): Show subtle Kiro corruption (warning)
+            showModerateKiroAnimation();
         } else {
-            // FAILURE: Show ChromaBot corrupted animation
+            // FAILURE (<60): Show heavy Kiro corruption
             showChromaBotAnimation();
         }
         
@@ -451,24 +454,59 @@ function showCompletionScreen(finalScore) {
             });
         }
         
-        // Function to show ChromaBot animation (for failure)
-        function showChromaBotAnimation() {
+        // Function to show moderate Kiro animation (for 60-69 score - "barely passed")
+        function showModerateKiroAnimation() {
             const logoFrame = document.createElement('img');
             logoFrame.style.cssText = 'width: 130px; height: 130px; object-fit: contain;';
-            logoFrame.src = '../../chroma-bot/assets/img/Chroma_Org_Logo_No_Background/Chroma_1.png';
+            const cacheBust = Date.now();
+            logoFrame.src = `../../chroma-bot/assets/img/Chroma_Org_Logo_No_Background/Chroma_1.png?v=${cacheBust}`;
             logoContainer.appendChild(logoFrame);
             
-            // Animate through logo frames
+            // Subtle corruption: only frames 1-2, slower cycle (warning vibe)
             let currentFrame = 0;
-            const totalFrames = 5;
-            const frameDelay = 150;
+            const totalFrames = 2; // Only slight corruption
+            const frameDelay = 300; // Slower than failure (more subtle)
             const cycles = 3;
             let cycleCount = 0;
             
             const animateFrames = setInterval(() => {
                 currentFrame = (currentFrame + 1) % totalFrames;
-                const frameNumber = currentFrame + 1;
-                logoFrame.src = `../../chroma-bot/assets/img/Chroma_Org_Logo_No_Background/Chroma_${frameNumber}.png`;
+                const frameNumber = currentFrame + 1; // Frames 1-2
+                logoFrame.src = `../../chroma-bot/assets/img/Chroma_Org_Logo_No_Background/Chroma_${frameNumber}.png?v=${cacheBust}`;
+                
+                if (currentFrame === 0) {
+                    cycleCount++;
+                    if (cycleCount >= cycles) {
+                        clearInterval(animateFrames);
+                        console.log('✅ Moderate Kiro animation complete, transforming to QR...');
+                        setTimeout(() => {
+                            transformToQR(logoFrame);
+                        }, 500);
+                    }
+                }
+            }, frameDelay);
+        }
+        
+        // Function to show ChromaBot animation (for failure <60)
+        function showChromaBotAnimation() {
+            const logoFrame = document.createElement('img');
+            logoFrame.style.cssText = 'width: 130px; height: 130px; object-fit: contain;';
+            // Cache-busting timestamp to force reload of new Kiro frames
+            const cacheBust = Date.now();
+            logoFrame.src = `../../chroma-bot/assets/img/Chroma_Org_Logo_No_Background/Chroma_2.png?v=${cacheBust}`;
+            logoContainer.appendChild(logoFrame);
+            
+            // Heavy corruption: frames 2-5, faster cycle
+            let currentFrame = 1; // Start at frame 2 (skip clean frame)
+            const totalFrames = 4; // Frames 2-5
+            const frameDelay = 150; // Fast corruption
+            const cycles = 3;
+            let cycleCount = 0;
+            
+            const animateFrames = setInterval(() => {
+                currentFrame = (currentFrame + 1) % totalFrames;
+                const frameNumber = currentFrame + 2; // Maps to frames 2-5
+                logoFrame.src = `../../chroma-bot/assets/img/Chroma_Org_Logo_No_Background/Chroma_${frameNumber}.png?v=${cacheBust}`;
                 
                 if (currentFrame === 0) {
                     cycleCount++;

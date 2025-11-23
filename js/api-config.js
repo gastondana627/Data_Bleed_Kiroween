@@ -23,8 +23,8 @@ class APIConfig {
                          hostname.startsWith('192.168.') ||
                          hostname.endsWith('.local');
 
-    // Production Railway URL (update this with your actual Railway URL)
-    const PRODUCTION_API_URL = 'https://chroma-bot-game-production.up.railway.app';
+    // Production Railway URL (shared with original Chroma version to save costs)
+    const PRODUCTION_API_URL = 'https://data-bleed-backend.up.railway.app';
     
     // Development API URL
     const DEVELOPMENT_API_URL = 'http://127.0.0.1:3001';

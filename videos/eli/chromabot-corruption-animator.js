@@ -61,14 +61,17 @@ class ChromaBotCorruptionAnimator {
         // Dynamic path resolution for localhost and production
         const basePath = this.getBasePath() + 'chroma-bot/assets/img/Chroma_Org_Logo_No_Background/';
         
+        // Cache-busting timestamp to force reload of new Kiro frames
+        const cacheBust = Date.now();
+        
         // Load frames 1-5
         for (let i = 1; i <= 5; i++) {
             const img = new Image();
-            img.src = basePath + 'Chroma_' + i + '.png';
+            img.src = basePath + 'Chroma_' + i + '.png?v=' + cacheBust;
             this.frames.push(img);
         }
         
-        console.log('📥 Preloaded ' + this.frames.length + ' ChromaBot frames from: ' + basePath);
+        console.log('📥 Preloaded ' + this.frames.length + ' Kiro frames from: ' + basePath);
     }
     
     /**
@@ -662,3 +665,4 @@ class ChromaBotCorruptionAnimator {
 if (typeof window !== 'undefined') {
     window.ChromaBotCorruptionAnimator = ChromaBotCorruptionAnimator;
 }
+// Cache bust: 1763836914
