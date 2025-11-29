@@ -1,0 +1,11 @@
+{
+  "name": "Cache-Busting Verification",
+  "description": "Checks that cache-busting parameters are present in key files",
+  "trigger": "beforeCommit",
+  "command": "bash",
+  "args": [
+    "-c",
+    "echo '🔍 Checking cache-busting...' && grep -q 'cacheBust' videos/eli/chromabot-corruption-animator.js && grep -q '?v=' videos/eli/eli-flexible-player.html && echo '✅ Cache-busting present' || (echo '⚠️ Cache-busting may be missing' && exit 0)"
+  ],
+  "enabled": true
+}

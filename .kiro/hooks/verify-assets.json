@@ -1,0 +1,11 @@
+{
+  "name": "Verify Kiro Assets",
+  "description": "Validates that all Kiro corruption frames exist before deployment",
+  "trigger": "beforeDeploy",
+  "command": "bash",
+  "args": [
+    "-c",
+    "echo '🔍 Verifying Kiro assets...' && ls -1 chroma-bot/assets/img/Chroma_Org_Logo_No_Background/Chroma_{1..5}.png 2>/dev/null | wc -l | grep -q 5 && echo '✅ All 5 Kiro frames present' || (echo '❌ Missing Kiro frames!' && exit 1)"
+  ],
+  "enabled": true
+}
